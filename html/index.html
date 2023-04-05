@@ -1,0 +1,124 @@
+<!DOCTYPE HTML><html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	<title>%APP_NAME% - Administration</title>
+
+</head>
+<body>
+
+	<div id="loadingStart">Loading...</div>
+	
+	<div id="main" style="display: none;">
+		<div class="loading" id="loader" style="display: none;">
+			<div style="margin-left: -25px">Loading...</div>
+			<div>&#8230;</div>
+		</div>
+		<div class="logo">
+			%APP_NAME%
+		</div>
+		<div id="header">
+			<div class="row">
+				<h5>%APP_NAME%</h5>
+			</div>
+		</div>
+		<div id="sidebar">		
+			<a class="button w100" href="/">home</a>
+			<a class="button w100" href="/update">update</a>
+			<!--<a class="button w100 button-danger" id="reset" href="#">reset</a>-->
+			<div class="version" id="version">%VERSION%</div>
+			
+			<div id="footer">
+				<div><a href="https://github.com/redakker/" target="_blank">redakker</a></div>
+			</div>
+
+		</div>
+		<div id="content">
+			<div class="contaier">
+
+				<!-- The Modal -->
+				<div id="myModal" class="modal" style="display: none;">
+
+					<!-- Modal content -->
+					<div class="modal-content">
+					<span class="close">&times;</span>
+					<p>Some text in the Modal..</p>
+					</div>
+				
+				</div>
+
+				<div class="row">
+				<form id="dataform">
+					<div class="row" style="position: relative">
+						<h5 class="grey hrborder">Network settings</h5>
+						<div class="extrafunc pull-right text-warning hand" id="advancednet" onclick="advanced()">advanced +</div>
+						<div class="extrafunc pull-right text-warning hand" id="basicnet" style="display: none" onclick="advanced()">basic -</div>
+					</div>
+					<div class="row">					
+						<div class="six columns">
+							<label for="ssid">WiFi name</label>
+							<input type="text" class="u-full-width" name="ssid" id="ssid" placeholder="SSID">
+						</div>
+						<div class="six columns">
+							<label for="pw">Password</label>
+							<input type="password" class="u-full-width" name="pw" id="pw" placeholder="Password">
+						</div>
+					</div>
+										
+					<div class="row">					
+						<div class="six columns">
+							<label for="mqttserver">MQTT server</label>
+							<input type="text" class="u-full-width" name="mqttserver" id="mqttserver" placeholder="MQTT server address">
+						</div>
+						<div class="three columns">
+							<label for="mqttport">MQTT port</label>
+							<input type="text" class="u-full-width" value="1883" name="mqttport" id="mqttport" placeholder="MQTT server mqttport">
+						</div>
+						
+						<div class="three columns">
+							<label for="mqttprefix">Base topic</label>
+							<input type="text" class="u-full-width" name="mqttprefix" id="mqttprefix" placeholder="MQTT topic prefix">
+						</div>
+					</div>
+
+					<div class="row">					
+						<div class="six columns">
+							<label for="mqttuser">Username</label>
+							<input type="text" class="u-full-width" name="mqttuser" id="mqttuser" placeholder="Username">
+						</div>
+						<div class="six columns">
+							<label for="mqttpw">Password</label>
+							<input type="password" class="u-full-width" name="mqttpw" id="mqttpw" placeholder="Password">
+						</div>
+					</div>
+
+					<div class="row">
+						<label for="reboot">Reboot after (hours)</label>
+						<input type="text" class="u-full-width" name="reboot" id="reboot" placeholder="">
+						<div class="inputcomment"></div>
+					</div>
+
+					<div class="row">
+						<label for="detailed">Detailed report</label>
+						<select class="u-full-width" name="detailed" id="detailed">
+							<option value="0">Do not send</option>
+							<option value="1">Send</option>							
+						</select>
+						<div class="inputcomment">Send detailed MQTT report.</div>
+					</div>
+					
+					<div class="row" style="height: 30px;"></div>					
+					
+					<input class="button-primary" type="button" value="Submit" id="savebutton" onclick="save()">
+				</form>
+				</div>
+			</div>		
+		</div>
+		<script type="text/javascript" src="/functions.js"></script>
+	</div>
+	
+</body>
+</html>

@@ -20,7 +20,7 @@
 // Business values
 #define PIN_READY	4
 #define PIN_PULSE	5
-#define NUMBER_TO_SEND_TIMEOUT 2000
+#define NUMBER_TO_SEND_TIMEOUT 3500
 
 
 

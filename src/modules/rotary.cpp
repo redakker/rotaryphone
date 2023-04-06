@@ -27,9 +27,6 @@ class Rotary {
         void setup (Signal<MQTTMessage> &message) {
 
             this -> message = &message;
-
-            
-            
             this -> dialer.setup();
             
             this -> rlog -> log(log_prefix, "Rotary is ready");
@@ -45,8 +42,8 @@ class Rotary {
 	        }
 
             unsigned long currentMillis = millis();
-            if (numberToSend != "" && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
-                this -> rlog -> log(log_prefix, "Send number:" + numberToSend);
+            if (!numberToSend.isEmpty() && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
+                this -> rlog -> log(log_prefix, "Send number: " + numberToSend);
 
                 this->message->fire(MQTTMessage{"number", numberToSend, false});
 
@@ -55,7 +52,6 @@ class Rotary {
 
         }
   
-
         void receiveCommand(String message) {
 
             StaticJsonDocument<1000> tempJson; 

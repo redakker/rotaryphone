@@ -11,9 +11,13 @@
 
 class Rotary {
 
-    Log* rlog;
+    Log* rlog;    
     Signal<MQTTMessage>* message;
     String log_prefix = "[ROTARY] ";
+    RotaryDialer dialer = RotaryDialer(PIN_READY, PIN_PULSE);
+
+    String numberToSend = "";
+    unsigned long lastGetNumberMillis = 0;
  
     public:
         Rotary(Log &rlog) {
@@ -23,10 +27,31 @@ class Rotary {
         void setup (Signal<MQTTMessage> &message) {
 
             this -> message = &message;
+
+            
+            
+            this -> dialer.setup();
+            
             this -> rlog -> log(log_prefix, "Rotary is ready");
         }
 
         void loop() {
+
+
+            if (this -> dialer.update()) {
+		        // this -> rlog -> log(log_prefix, "number:" + (String) this -> dialer.getNextNumber());
+                numberToSend = numberToSend + (String) dialer.getNextNumber();
+                lastGetNumberMillis = millis();
+	        }
+
+            unsigned long currentMillis = millis();
+            if (numberToSend != "" && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
+                this -> rlog -> log(log_prefix, "Send number:" + numberToSend);
+
+                this->message->fire(MQTTMessage{"number", numberToSend, false});
+
+                numberToSend = "";
+            }
 
         }
   

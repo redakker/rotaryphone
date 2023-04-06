@@ -12,7 +12,7 @@
 
 // Require DEBOUNCE_DELAY milliseconds between state changes. This value is
 // noted in the class documentation.
-#define DEBOUNCE_DELAY	15
+#define DEBOUNCE_DELAY	0
 
 RotaryDialer::RotaryDialer(int readyPin, int pulsePin) :
 	pinReady(readyPin), pinPulse(pulsePin), hasCompletedNumber(false),
@@ -60,7 +60,7 @@ bool RotaryDialer::update() {
 
 	switch(state) {
 		case WAITING:
-			if (readyStatus == LOW
+			if (readyStatus == HIGH
 				&& changeStateIfDebounced(LISTENING_NOPULSE))
 			{
 				hasCompletedNumber = false;
@@ -68,16 +68,16 @@ bool RotaryDialer::update() {
 			}
 			break;
 		case LISTENING_NOPULSE:
-			if (readyStatus == HIGH) {
+			if (readyStatus == LOW) {
 				completeDial();
-			} else if (pulseStatus == HIGH) {
+			} else if (pulseStatus == LOW) {
 				changeStateIfDebounced(LISTENING_PULSE);
 			}
 			break;
 		case LISTENING_PULSE:
-			if (readyStatus == HIGH) {
+			if (readyStatus == LOW) {
 				completeDial();
-			} else if (pulseStatus == LOW
+			} else if (pulseStatus == HIGH
 				&& changeStateIfDebounced(LISTENING_NOPULSE))
 			{
 				number++;

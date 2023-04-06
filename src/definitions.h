@@ -1,5 +1,5 @@
 // VERSION
-#define MAJOR_VERSION 0.60
+#define MAJOR_VERSION 0.01
 
 // Board specific setings
 // board name which will be verified in its database. If does not match with the database, db will be reset
@@ -12,13 +12,16 @@
 // Software settings
 #define SERVER_PORT 80
 #define MQTT_MAX_TRY 10 // give the connect up after this amount of tries
-#define MQTT_TOPIC "/dice"
+#define MQTT_TOPIC "/rotaryphone"
 #define MQTT_IN_POSTFIX "/in"
 #define MQTT_STATUS_ON "{\"status\": \"on\"}"
 #define MQTT_STATUS_OFF "{\"status\": \"off\"}"
 
-// Brightness control is skipped under this animation speed
-#define BRIGHTNESS_CONTROL_TIME_LIMIT 400
+// Business values
+#define PIN_READY	4
+#define PIN_PULSE	5
+#define NUMBER_TO_SEND_TIMEOUT 2000
+
 
 
 // Network

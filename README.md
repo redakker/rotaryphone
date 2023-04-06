@@ -1,6 +1,6 @@
 # Rotary phone to MQTT
 
-In this project I made the old rotary phone to smart. It sends the rotated numbers to an MQTT server. Later this information can be used to automate everything.
+In this project I made the old rotary phone smart. It sends the rotated numbers to an MQTT server. Later this information can be used to automate everything.
 
 https://user-images.githubusercontent.com/15798619/230387954-5b1b0422-ebbc-4f4e-9e12-549ca0c81e21.mp4
 

@@ -20,3 +20,8 @@ It counts the pulses of the phone then retuns with the result.
 - Rotated numbers will be sent over MQTT
 
 After a dial there is a 2 secs timeout before sending out the number. It makes possible to dial longer than 1 digit numbers.
+
+TODOs:
+- make available to have some sound in the handset (for ex. mp3)
+- read the onhook/offhook events
+- trigger to ring the phone over MQTT

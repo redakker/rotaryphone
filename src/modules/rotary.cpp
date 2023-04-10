@@ -19,7 +19,7 @@ class Rotary {
     String numberToSend = "";
     unsigned long lastGetNumberMillis = 0;
     bool offHook = LOW;
-    bool previousOfffHook = LOW;
+    bool previousOffHook = LOW;
     String topic = PHONE_MQTT_TOPIC_ONHOOK_NUMBER;
  
     public:
@@ -64,7 +64,9 @@ class Rotary {
             }
 
             // Send out the offhook/onhook event
-            if (previousOfffHook != offHook) {
+            if (previousOffHook != offHook) {
+                previousOffHook = offHook;
+
                 if (offHook) {
                     this->message->fire(MQTTMessage{topic, (String) 1, false});   
                 } else {

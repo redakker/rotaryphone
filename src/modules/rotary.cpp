@@ -18,6 +18,9 @@ class Rotary {
 
     String numberToSend = "";
     unsigned long lastGetNumberMillis = 0;
+    bool offHook = LOW;
+    bool previousOfffHook = LOW;
+    String topic = PHONE_MQTT_TOPIC_ONHOOK_NUMBER;
  
     public:
         Rotary(Log &rlog) {
@@ -28,12 +31,16 @@ class Rotary {
 
             this -> message = &message;
             this -> dialer.setup();
-            
+
+            // Off-hook setip
+            pinMode(PIN_OFF_HOOK, INPUT);
+
             this -> rlog -> log(log_prefix, "Rotary is ready");
         }
 
         void loop() {
 
+            offHook = digitalRead(PIN_OFF_HOOK);
 
             if (this -> dialer.update()) {
 		        // this -> rlog -> log(log_prefix, "number:" + (String) this -> dialer.getNextNumber());
@@ -45,11 +52,25 @@ class Rotary {
             if (!numberToSend.isEmpty() && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
                 this -> rlog -> log(log_prefix, "Send number: " + numberToSend);
 
-                this->message->fire(MQTTMessage{"number", numberToSend, false});
+                // Decide if the off-hook is on/off
+                if (offHook) {
+                    topic = PHONE_MQTT_TOPIC_OFFHOOK_NUMBER;    
+                } else {
+                    topic = PHONE_MQTT_TOPIC_ONHOOK_NUMBER;
+                }
 
+                this->message->fire(MQTTMessage{topic, numberToSend, false});
                 numberToSend = "";
             }
 
+            // Send out the offhook/onhook event
+            if (previousOfffHook != offHook) {
+                if (offHook) {
+                    this->message->fire(MQTTMessage{topic, (String) 1, false});   
+                } else {
+                    this->message->fire(MQTTMessage{topic, (String) 0, false});
+                }
+            }
         }
   
         void receiveCommand(String message) {
@@ -61,7 +82,6 @@ class Rotary {
 
             if (Derror) {
                 rlog -> log(log_prefix + (String) "DeserializationError: " + Derror.c_str() + " (receiveCommand) " + message);
-                
             } else {
 
             }

@@ -18,9 +18,14 @@
 #define MQTT_STATUS_OFF "{\"status\": \"off\"}"
 
 // Business values
-#define PIN_READY	4
-#define PIN_PULSE	5
+#define PIN_READY 4
+#define PIN_PULSE 5
+#define PIN_OFF_HOOK 22
 #define NUMBER_TO_SEND_TIMEOUT 3500
+#define PHONE_MQTT_TOPIC_ONHOOK_NUMBER "number"
+#define PHONE_MQTT_TOPIC_OFFHOOK_NUMBER "offhook/number"
+#define PHONE_MQTT_TOPIC_HOOK_EVENT "offhook"
+
 
 
 

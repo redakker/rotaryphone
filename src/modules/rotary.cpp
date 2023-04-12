@@ -20,6 +20,7 @@ class Rotary {
     unsigned long lastGetNumberMillis = 0;
     bool offHook = LOW;
     bool previousOffHook = LOW;
+    bool readyStatus = LOW;
     String topic = PHONE_MQTT_TOPIC_ONHOOK_NUMBER;
  
     public:
@@ -41,15 +42,20 @@ class Rotary {
         void loop() {
 
             offHook = digitalRead(PIN_OFF_HOOK);
+            int readyStatus = digitalRead(PIN_READY);
+	        int pulseStatus = digitalRead(PIN_PULSE);
 
-            if (this -> dialer.update()) {
+
+            if (this -> dialer.update(readyStatus, pulseStatus)) {
 		        // this -> rlog -> log(log_prefix, "number:" + (String) this -> dialer.getNextNumber());
                 numberToSend = numberToSend + (String) dialer.getNextNumber();
                 lastGetNumberMillis = millis();
 	        }
 
             unsigned long currentMillis = millis();
-            if (!numberToSend.isEmpty() && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
+            // Check the readyStatus too, and you can lower the NUMBER_TO_SEND_TIMEOUT
+            // otherwise there is no time to read the second number in case of timout 2000
+            if (!numberToSend.isEmpty() && readyStatus == LOW && currentMillis - lastGetNumberMillis > NUMBER_TO_SEND_TIMEOUT) {                
                 this -> rlog -> log(log_prefix, "Send number: " + numberToSend);
 
                 // Decide if the off-hook is on/off

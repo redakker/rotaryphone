@@ -54,13 +54,11 @@ void RotaryDialer::completeDial() {
 	}
 }
 
-bool RotaryDialer::update() {
-	int readyStatus = digitalRead(pinReady);
-	int pulseStatus = digitalRead(pinPulse);
+bool RotaryDialer::update(int pinReadyState, int pinPulseState) {
 
 	switch(state) {
 		case WAITING:
-			if (readyStatus == HIGH
+			if (pinReadyState == HIGH
 				&& changeStateIfDebounced(LISTENING_NOPULSE))
 			{
 				hasCompletedNumber = false;
@@ -68,16 +66,16 @@ bool RotaryDialer::update() {
 			}
 			break;
 		case LISTENING_NOPULSE:
-			if (readyStatus == LOW) {
+			if (pinReadyState == LOW) {
 				completeDial();
-			} else if (pulseStatus == LOW) {
+			} else if (pinPulseState == LOW) {
 				changeStateIfDebounced(LISTENING_PULSE);
 			}
 			break;
 		case LISTENING_PULSE:
-			if (readyStatus == LOW) {
+			if (pinReadyState == LOW) {
 				completeDial();
-			} else if (pulseStatus == HIGH
+			} else if (pinPulseState == HIGH
 				&& changeStateIfDebounced(LISTENING_NOPULSE))
 			{
 				number++;

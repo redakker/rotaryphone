@@ -52,7 +52,7 @@ class RotaryDialer {
 		 * dialing complete, etc). This must be called at least as
 		 * pulses; assuming 10 pulses per second, every 50ms.
 		 */
-		bool update();
+		bool update(int pinReadyState, int pinPulseState);
 
 		/**
 		 * @return whether a new number has been dialed since the last

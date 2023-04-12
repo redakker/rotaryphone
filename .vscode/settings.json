@@ -1,4 +1,7 @@
 {
     "cmake.sourceDirectory": "${workspaceFolder}/.pio/libdeps/esp32dev/ArduinoJson",
+    "files.associations": {
+        "*.tcc": "cpp"
+    },
     
 }

@@ -1,5 +1,5 @@
 // VERSION
-#define MAJOR_VERSION 0.01
+#define MAJOR_VERSION 0.1
 
 // Board specific setings
 // board name which will be verified in its database. If does not match with the database, db will be reset
@@ -21,7 +21,7 @@
 #define PIN_READY 4
 #define PIN_PULSE 5
 #define PIN_OFF_HOOK 22
-#define NUMBER_TO_SEND_TIMEOUT 3500
+#define NUMBER_TO_SEND_TIMEOUT 2000
 #define PHONE_MQTT_TOPIC_ONHOOK_NUMBER "number"
 #define PHONE_MQTT_TOPIC_OFFHOOK_NUMBER "offhook/number"
 #define PHONE_MQTT_TOPIC_HOOK_EVENT "offhook"

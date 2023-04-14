@@ -71,12 +71,15 @@ class Rotary {
 
             // Send out the offhook/onhook event
             if (previousOffHook != offHook) {
+
+                this -> rlog -> log(log_prefix, "Hook changed to " + (String) offHook);
+
                 previousOffHook = offHook;
 
                 if (offHook) {
-                    this->message->fire(MQTTMessage{topic, (String) 1, false});   
+                    this->message->fire(MQTTMessage{PHONE_MQTT_TOPIC_HOOK_EVENT, (String) 1, false});   
                 } else {
-                    this->message->fire(MQTTMessage{topic, (String) 0, false});
+                    this->message->fire(MQTTMessage{PHONE_MQTT_TOPIC_HOOK_EVENT, (String) 0, false});
                 }
             }
         }
